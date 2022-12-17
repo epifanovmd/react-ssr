@@ -1,20 +1,12 @@
 import { makeAutoObservable } from "mobx";
-import { IUsersDataStore, UsersDataStore } from "../../store";
-import { iocDecorator } from "../../common/ioc";
-import { IUser } from "../../service";
+import { UsersDataStore } from "../../store/users";
 
-export const IUserListVM = iocDecorator<UserListVM>();
-
-@IUserListVM()
 class UserListVM {
+  _usersDataStore = new UsersDataStore();
   private search: string = "";
 
-  constructor(@IUsersDataStore() private _usersDataStore: UsersDataStore) {
+  constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
-  }
-
-  get error() {
-    return this._usersDataStore.error;
   }
 
   get name() {
@@ -32,23 +24,11 @@ class UserListVM {
     );
   }
 
-  get loading() {
-    return this._usersDataStore.loading;
-  }
-
-  get loaded() {
-    return this._usersDataStore.loaded;
-  }
-
   onSearch(search: string) {
     this.search = search;
   }
 
   onRefresh() {
     return this._usersDataStore.onRefresh();
-  }
-
-  setInitial(users: IUser[]) {
-    return this._usersDataStore.setInitial(users);
   }
 }

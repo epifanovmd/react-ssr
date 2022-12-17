@@ -1,14 +1,14 @@
-import * as Sentry from "@sentry/node";
-import express from "express";
-import compression from "compression";
-import { renderPage } from "vite-plugin-ssr";
-import path from "node:path";
-import { LanguageDetector, handle } from "i18next-http-middleware";
-import i18n from "i18next";
-import { createServer } from "vite";
 import Backend from "i18next-fs-backend";
-import { readdirSync } from "node:fs";
+import compression from "compression";
+import express from "express";
+import i18n from "i18next";
+import path from "node:path";
+import { PageContextServer } from "../src/renderer/types";
+import { createServer } from "vite";
+import { handle, LanguageDetector } from "i18next-http-middleware";
 import { parse } from "query-string";
+import { readdirSync } from "node:fs";
+import { renderPage } from "vite-plugin-ssr";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -52,7 +52,7 @@ async function startServer() {
   }
 
   if (isProduction) {
-    app.use(Sentry.Handlers.requestHandler());
+    // some code ...
   }
 
   app.get("*", async (req, res, next) => {
@@ -63,10 +63,9 @@ async function startServer() {
       [req.i18n.language]: req.i18n.store.data[req.i18n.language],
     };
 
-    const pageContextInit = {
+    const pageContextInit: Partial<PageContextServer> = {
       locale: req.i18n.language,
       query: parse(query),
-      cookies: req.cookies,
       urlOriginal: url,
       i18nStore,
       i18n: req.i18n,
@@ -74,15 +73,19 @@ async function startServer() {
     const pageContext = await renderPage(pageContextInit);
     const { httpResponse } = pageContext;
 
-    if (!httpResponse) { return next(); }
+    if (!httpResponse) {
+      return next();
+    }
     const { body, statusCode, contentType, earlyHints } = httpResponse;
 
-    if (res.writeEarlyHints) { res.writeEarlyHints({ link: earlyHints.map(e => e.earlyHintLink) }); }
+    if (res.writeEarlyHints) {
+      res.writeEarlyHints({ link: earlyHints.map(e => e.earlyHintLink) });
+    }
     res.status(statusCode).type(contentType).send(body);
   });
 
   if (isProduction) {
-    app.use(Sentry.Handlers.errorHandler());
+    // some code ...
   }
 
   const port = process.env.PORT || 3000;

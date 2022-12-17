@@ -1,51 +1,26 @@
-import React, { FC, useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-
-import { Table, TableHeader, TableRow, TableRowCell } from "../table";
-import { Button, Checkbox } from "../ui";
+import React, { FC } from "react";
 import { observer } from "mobx-react-lite";
-import { IUserListVM } from "./UserList.vm";
-import { useBooleanState } from "../../common";
-import { IUser } from "../../service";
+import { useStore } from "../../store";
 
-interface IProps {
-  users: IUser[]
-}
+interface IProps {}
 
-export const UserListComponent: FC<IProps> = observer(({ users }) => {
-  const { list, onRefresh, setInitial } = useMemo(() => IUserListVM.getInstance(), []);
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    setInitial(users || []);
-  }, []);
-
-  const [open, onOpen, onClose] = useBooleanState();
-
-  const _list = useMemo(
-    () =>
-      users.map(item => (
-        <TableRow key={item.id}>
-          <TableRowCell label={"username"}>{item.username}</TableRowCell>
-          <TableRowCell label={"email"}>{item.email}</TableRowCell>
-        </TableRow>
-      )),
-    [users],
-  );
+export const UserList: FC<IProps> = observer(() => {
+  const { data } = useStore("usersDataStore");
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableRowCell>{t("username")}</TableRowCell>
-          <TableRowCell>{t("email")}</TableRowCell>
-        </TableRow>
-      </TableHeader>
-      {_list}
-
-      <Button onClick={onOpen}>Открыть модальное окно</Button>
-
-      <Checkbox />
-    </Table>
+    <div>
+      {data.map(item => (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+          key={item.id}
+        >
+          <div>{item.username}</div>
+          <div>{item.email}</div>
+        </div>
+      ))}
+    </div>
   );
 });

@@ -3,7 +3,10 @@
     "module": "esnext",
     "target": "ES6",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client"],
+    "types": [
+      "vite/client",
+      "reflect-metadata",
+    ],
     "outDir": "./build",
     "jsx": "react",
     "rootDir": ".",
@@ -30,7 +33,11 @@
   "ts-node": {
     "transpileOnly": true,
     "compilerOptions": {
-      "module": "CommonJS"
+      "module": "CommonJS",
+      "types": [
+        "vite/client",
+        "reflect-metadata",
+      ]
     }
   },
   "exclude": [

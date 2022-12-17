@@ -1,12 +1,11 @@
 import ReactDOMServer from "react-dom/server";
 import React from "react";
-import fetch from "node-fetch";
 import { I18nextProvider } from "react-i18next";
 import { PageShell } from "./PageShell";
 import { dangerouslySkipEscape, escapeInject } from "vite-plugin-ssr";
 import type { PageContextServer } from "./types";
 import { ServerStyleSheet } from "styled-components";
-import { IUserListVM } from "../components";
+import { createStore } from "../store";
 
 export const passToClient = [
   "pageProps",
@@ -14,23 +13,32 @@ export const passToClient = [
   "query",
   "i18nStore",
   "routeParams",
+  "hydrateData",
 ];
 
-export const render = (pageContext: PageContextServer) => {
-  const { exports, locale, i18n, urlPathname } = pageContext;
+export const render = async (pageContext: PageContextServer) => {
+  const { i18n } = pageContext;
+
+  const store = createStore();
   const sheet = new ServerStyleSheet();
+  const prefetchStore = await pageContext.exports.onBeforeRender?.({
+    ...pageContext,
+    store,
+  });
 
   const pageHtml = ReactDOMServer.renderToString(
     sheet.collectStyles(
       <I18nextProvider i18n={i18n}>
-        <PageShell {...pageContext} />
+        <PageShell {...pageContext} store={store} />
       </I18nextProvider>,
     ),
   );
 
   const { documentProps } = pageContext.exports;
   const title = (documentProps && documentProps.title) || "Vite SSR app";
-  const desc = (documentProps && documentProps.description) || "App using Vite + vite-plugin-ssr";
+  const desc =
+    (documentProps && documentProps.description) ||
+    "App using Vite + vite-plugin-ssr";
   const styles = sheet.getStyleTags();
 
   const documentHtml = escapeInject`<!DOCTYPE html>
@@ -50,7 +58,7 @@ export const render = (pageContext: PageContextServer) => {
   return {
     documentHtml,
     pageContext: {
-      // We can add some `pageContext` here, which is useful if we want to do page redirection https://vite-plugin-ssr.com/page-redirection
+      hydrateData: prefetchStore?.dehydrate() || {},
     },
   };
 };

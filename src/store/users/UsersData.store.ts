@@ -1,33 +1,18 @@
 import { makeAutoObservable } from "mobx";
-
-import { IUser, IUsersService, UsersService } from "../../service";
+import { IUser, UsersService } from "../../service";
 import { CollectionHolder } from "../../common";
-import { iocDecorator } from "../../common/ioc";
+import { PrefetchStore } from "../types";
 
-export const IUsersDataStore = iocDecorator<UsersDataStore>("IUsersDataStore");
-
-@IUsersDataStore()
-export class UsersDataStore {
+export class UsersDataStore implements PrefetchStore<IUser[]> {
   public holder: CollectionHolder<IUser> = new CollectionHolder([]);
+  private _usersService = new UsersService();
 
-  constructor(@IUsersService() private _usersService: UsersService) {
+  constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  get error() {
-    return this.holder.error;
-  }
-
-  get loading() {
-    return this.holder.isLoading;
-  }
-
-  get loaded() {
-    return this.holder.isReady;
-  }
-
-  setInitial(users: IUser[]) {
-    this.holder.setData(users);
+  get data() {
+    return this.holder.d || [];
   }
 
   async onRefresh() {
@@ -44,4 +29,9 @@ export class UsersDataStore {
 
     return [];
   }
+
+  hydrate = (users: IUser[]) => {
+    this.holder.setData(users);
+  };
+  dehydrate = () => this.data;
 }

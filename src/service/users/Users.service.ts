@@ -1,10 +1,10 @@
 import { apiService } from "../../api";
 import { IUserResponse } from "./Users.types";
-import { iocDecorator } from "../../common/ioc";
+// import { iocDecorator } from "../../common/ioc";
 
-export const IUsersService = iocDecorator<UsersService>();
+// export const IUsersService = iocDecorator<UsersService>();
 
-@IUsersService()
+// @IUsersService()
 export class UsersService {
   getUsers() {
     return apiService.get<IUserResponse>("users");

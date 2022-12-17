@@ -1,23 +1,11 @@
 import React from "react";
-import { IUserListVM, UserListComponent } from "../../components";
+import { UserList } from "../../components";
+import { PageContext } from "../../renderer/types";
 
-export const onBeforeRender = async () => {
-  const {
-    list: users,
-    onRefresh
-  } = IUserListVM.getInstance();
+export const onBeforeRender = async ({ store }: PageContext) => {
+  await store?.usersDataStore.onRefresh();
 
-  await onRefresh();
-
-  return {
-    pageContext: {
-      pageProps: { users },
-    },
-  };
+  return store;
 };
 
-export const Page = ({ users }: any) => {
-  return (
-    <UserListComponent users={users} />
-  );
-};
+export const Page = () => <UserList />;
