@@ -17,18 +17,17 @@ export const passToClient = [
 ];
 
 export const render = async (pageContext: PageContextServer) => {
-  const { i18n } = pageContext;
-
   const store = createStore();
   const sheet = new ServerStyleSheet();
-  const prefetchStore = await pageContext.exports.onBeforeRender?.({
+
+  await pageContext.exports.onBeforeRender?.({
     ...pageContext,
     store,
   });
 
   const pageHtml = ReactDOMServer.renderToString(
     sheet.collectStyles(
-      <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={pageContext.i18n}>
         <PageShell {...pageContext} store={store} />
       </I18nextProvider>,
     ),
@@ -58,7 +57,7 @@ export const render = async (pageContext: PageContextServer) => {
   return {
     documentHtml,
     pageContext: {
-      hydrateData: prefetchStore?.dehydrate() || {},
+      hydrateData: store.dehydrate() || {},
     },
   };
 };

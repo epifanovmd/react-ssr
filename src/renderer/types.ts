@@ -31,8 +31,8 @@ type PageContextCustom = {
   i18n: i18n;
   i18nStore: Resource;
 
-  store?: AppStore;
-  hydrateData?: Record<string, any>;
+  store: AppStore;
+  hydrateData: Record<string, any>;
 };
 
 type DocumentProps = { title?: string; description?: string };

@@ -1,7 +1,7 @@
 import React, { StrictMode } from "react";
 import { PageContextProvider } from "./usePageContext";
 import type { PageContext } from "./types";
-import { Header } from "../components";
+import { Container, Header } from "../components";
 import { RootContext } from "../store";
 
 export const PageShell = (pageContext: PageContext) => {
@@ -11,8 +11,10 @@ export const PageShell = (pageContext: PageContext) => {
     <StrictMode>
       <RootContext.Provider value={store!}>
         <PageContextProvider value={{ ...pageContext }}>
-          <Header />
-          <Page {...pageProps} />
+          <Container>
+            <Header />
+            <Page {...pageProps} />
+          </Container>
         </PageContextProvider>
       </RootContext.Provider>
     </StrictMode>
