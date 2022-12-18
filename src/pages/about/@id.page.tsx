@@ -1,9 +1,27 @@
 import React from "react";
-import { PageContext } from "../../renderer/types";
 import { beforeRender } from "../../renderer/beforeRender";
+import { PageContext } from "../../renderer/types";
+import { usePageContext } from "../../renderer/usePageContext";
 
-export const onBeforeRender = beforeRender(({ routeParams }: PageContext) => {
+type AboutPageContext = PageContext<
+  { a: string | number },
+  { b: string },
+  { c: number }
+>;
+
+export const onBeforeRender = beforeRender<AboutPageContext>(
+  ({ urlParsed, routeParams }) => {
+    console.log("[onBeforeRender] urlParsed", urlParsed.searchAll);
+    console.log("[onBeforeRender] routeParams", routeParams);
+  },
+);
+
+export const Page = () => {
+  const { urlParsed, routeParams } =
+    usePageContext<PageContext<{ a: string }, { id: string }>>();
+
+  console.log("urlParsed", urlParsed.searchAll);
   console.log("routeParams", routeParams);
-});
 
-export const Page = () => <div>{"About page with id"}</div>;
+  return <div>{"About page with id"}</div>;
+};

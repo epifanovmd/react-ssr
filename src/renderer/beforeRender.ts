@@ -1,11 +1,23 @@
-import { PageContext } from "./types";
+import { PageContext, VitePageContext } from "./types";
 
 export const beforeRender =
-  (callback: (pageContext: PageContext) => any) =>
-  (pageContext: PageContext) => {
+  <T = PageContext>(
+    callback: (pageContext: T) => (Partial<T> & Record<string, any>) | void,
+  ) =>
+  (pageContext: VitePageContext) => {
+    const {
+      Page,
+      pageProps,
+      hydrateData,
+      exports,
+      exportsAll,
+      pageExports,
+      ...rest
+    } = pageContext;
+
     if (!pageContext.store) {
       return null;
     }
 
-    return callback(pageContext);
+    return callback(rest as any);
   };

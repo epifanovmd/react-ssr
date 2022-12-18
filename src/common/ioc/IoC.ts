@@ -24,6 +24,7 @@ const iocContainer = new InversifyContainer();
 const { lazyInject } = getDecorators(iocContainer);
 
 const instance: { [key: string]: any } = {};
+const iocHook = <T>(ioc: IIoCInterface<T>) => ioc.getInstance;
 
 function iocDecorator<TInterface>(name?: string): IIoCInterface<TInterface> {
   const tid = name || v4();
@@ -59,4 +60,4 @@ function iocDecorator<TInterface>(name?: string): IIoCInterface<TInterface> {
   return iocDecoratorFactory;
 }
 
-export { Injectable, Inject, iocDecorator };
+export { Injectable, Inject, iocDecorator, iocHook };

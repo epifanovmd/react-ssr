@@ -10,4 +10,5 @@ export const PageContextProvider = ({
   <Context.Provider value={value}>{children}</Context.Provider>
 );
 
-export const usePageContext = () => useContext(Context);
+export const usePageContext = <T extends PageContext = PageContext>() =>
+  useContext(Context) as T;

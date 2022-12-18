@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
 import type { PageContextBuiltIn } from "vite-plugin-ssr";
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client";
-import type { i18n, Resource } from "i18next";
 import { AppStore } from "../store";
-import { ParsedQuery } from "query-string";
+import { PageContextUrls } from "vite-plugin-ssr/dist/esm/shared/addComputedUrlProps";
 
 export type { DocumentProps };
 export type { OnBeforeRender };
@@ -11,6 +10,7 @@ export type { PageContext };
 export type { PageContextServer };
 export type { PageContextClient };
 export type { PageProps };
+export type { VitePageContext };
 
 type PageProps = {};
 type Page = (pageProps: PageProps) => ReactElement;
@@ -20,25 +20,46 @@ type PageContextCustom = {
   pageProps?: PageProps;
 
   urlPathname: string;
-  locale: string;
-  query: ParsedQuery;
 
   exports: {
     documentProps?: DocumentProps;
     onBeforeRender?: OnBeforeRender;
   };
 
-  i18n: i18n;
-  i18nStore: Resource;
-
   store: AppStore;
   hydrateData: Record<string, any>;
 };
 
 type DocumentProps = { title?: string; description?: string };
-type OnBeforeRender = (pageContext: PageContext) => Promise<AppStore>;
+type OnBeforeRender = (pageContext: VitePageContext) => Promise<AppStore>;
 
 type PageContextServer = PageContextBuiltIn<Page> & PageContextCustom;
 type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom;
 
-type PageContext = PageContextClient | PageContextServer;
+type VitePageContext = PageContextClient | PageContextServer;
+
+type PageContext<
+  QueryParams = Record<string, string>,
+  RouteParams = Record<string, string>,
+  PageContextCustom = Record<string, any>,
+> = Omit<
+  VitePageContext,
+  // client unused
+  | "Page"
+  | "pageProps"
+  | "hydrateData"
+  | "exports"
+  | "exportsAll"
+  | "pageExports"
+  // redefine
+  | "routeParams"
+  | "urlParsed"
+> & {
+  routeParams: RouteParams;
+  urlParsed: Omit<PageContextUrls["urlParsed"], "search" | "searchAll"> & {
+    search: Partial<QueryParams>;
+    searchAll: Partial<
+      Record<keyof QueryParams, QueryParams[keyof QueryParams][]>
+    >;
+  };
+} & PageContextCustom;

@@ -1,20 +1,12 @@
-import ReactDOMServer from "react-dom/server";
 import React from "react";
-import { I18nextProvider } from "react-i18next";
-import { PageShell } from "./PageShell";
-import { dangerouslySkipEscape, escapeInject } from "vite-plugin-ssr";
+import ReactDOMServer from "react-dom/server";
 import type { PageContextServer } from "./types";
+import { PageShell } from "./PageShell";
 import { ServerStyleSheet } from "styled-components";
 import { createStore } from "../store";
+import { dangerouslySkipEscape, escapeInject } from "vite-plugin-ssr";
 
-export const passToClient = [
-  "pageProps",
-  "locale",
-  "query",
-  "i18nStore",
-  "routeParams",
-  "hydrateData",
-];
+export const passToClient = ["routeParams", "hydrateData"];
 
 export const render = async (pageContext: PageContextServer) => {
   const store = createStore();
@@ -26,11 +18,7 @@ export const render = async (pageContext: PageContextServer) => {
   });
 
   const pageHtml = ReactDOMServer.renderToString(
-    sheet.collectStyles(
-      <I18nextProvider i18n={pageContext.i18n}>
-        <PageShell {...pageContext} store={store} />
-      </I18nextProvider>,
-    ),
+    sheet.collectStyles(<PageShell {...pageContext} store={store} />),
   );
 
   const { documentProps } = pageContext.exports;

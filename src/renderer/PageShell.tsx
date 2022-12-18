@@ -1,10 +1,10 @@
 import React, { StrictMode } from "react";
 import { PageContextProvider } from "./usePageContext";
-import type { PageContext } from "./types";
+import type { VitePageContext } from "./types";
 import { Container, Header } from "../components";
 import { RootContext } from "../store";
 
-export const PageShell = (pageContext: PageContext) => {
+export const PageShell = (pageContext: VitePageContext) => {
   const { Page, pageProps, store } = pageContext;
 
   return (
