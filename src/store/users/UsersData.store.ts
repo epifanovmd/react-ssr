@@ -1,13 +1,16 @@
 import { makeAutoObservable } from "mobx";
-import { IUser, UsersService } from "../../service";
+import { IUser, IUsersService, UsersService } from "../../service";
 import { CollectionHolder } from "../../common";
 import { PrefetchStore } from "../types";
+import { iocDecorator } from "../../common/ioc";
 
+export const IUsersDataStore = iocDecorator<UsersDataStore>();
+
+@IUsersDataStore()
 export class UsersDataStore implements PrefetchStore<IUser[]> {
   public holder: CollectionHolder<IUser> = new CollectionHolder([]);
-  private _usersService = new UsersService();
 
-  constructor() {
+  constructor(@IUsersService() private _usersService: UsersService) {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 

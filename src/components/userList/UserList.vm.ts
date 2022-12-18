@@ -1,11 +1,15 @@
 import { makeAutoObservable } from "mobx";
-import { UsersDataStore } from "../../store/users";
+import { IUsersDataStore, UsersDataStore } from "../../store/users";
+import { iocDecorator } from "../../common/ioc";
+import { AppStore, IAppStore } from "../../store";
 
+export const IUserListVM = iocDecorator<UserListVM>();
+
+@IUserListVM()
 class UserListVM {
-  _usersDataStore = new UsersDataStore();
   private search: string = "";
 
-  constructor() {
+  constructor(@IAppStore() private _appStore: AppStore) {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -14,7 +18,7 @@ class UserListVM {
   }
 
   get list() {
-    return (this._usersDataStore.holder.d || []).filter(
+    return (this._appStore.usersDataStore.data || []).filter(
       item =>
         item.name.includes(this.search || "") ||
         item.email.includes(this.search || "") ||
@@ -29,6 +33,6 @@ class UserListVM {
   }
 
   onRefresh() {
-    return this._usersDataStore.onRefresh();
+    return this._appStore.usersDataStore.onRefresh();
   }
 }

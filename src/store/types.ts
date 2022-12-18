@@ -1,10 +1,10 @@
 import { AppStore } from "./index";
 
-export type { IAppStore };
+export type { TAppStore };
 export type { PrefetchStore };
 export type { PrefetchStorePickKeys };
 
-type IAppStore = Omit<AppStore, keyof PrefetchStore<any>>;
+type TAppStore = Omit<AppStore, keyof PrefetchStore<any>>;
 
 type PrefetchStore<State> = {
   hydrate(state: State): void;

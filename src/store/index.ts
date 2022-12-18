@@ -1,7 +1,9 @@
-import { UsersDataStore } from "./users";
+import { IUsersDataStore, UsersDataStore } from "./users";
 import { createContext, useContext } from "react";
 import { enableStaticRendering } from "mobx-react-lite";
-import { IAppStore, PrefetchStorePickKeys } from "./types";
+import { TAppStore, PrefetchStorePickKeys } from "./types";
+import { makeAutoObservable } from "mobx";
+import { iocDecorator } from "../common/ioc";
 
 export { AppStore };
 export { RootContext };
@@ -12,8 +14,13 @@ enableStaticRendering(import.meta.env.SSR);
 
 let store: AppStore | undefined = undefined;
 
+export const IAppStore = iocDecorator<AppStore>();
+
+@IAppStore({ inSingleton: true })
 class AppStore {
-  usersDataStore = new UsersDataStore();
+  constructor(@IUsersDataStore() public usersDataStore: UsersDataStore) {
+    makeAutoObservable(this, {}, { autoBind: true });
+  }
 
   hydrate(data: Record<string, unknown>) {
     Object.keys(data).forEach(key => {
@@ -43,8 +50,8 @@ class AppStore {
   }
 }
 
-const RootContext = createContext<IAppStore>(undefined as any);
-const useStore = <T extends keyof IAppStore>(key: T): AppStore[T] => {
+const RootContext = createContext<TAppStore>(undefined as any);
+const useStore = <T extends keyof TAppStore>(key: T): AppStore[T] => {
   const root = useContext(RootContext);
 
   return root[key];
@@ -52,9 +59,9 @@ const useStore = <T extends keyof IAppStore>(key: T): AppStore[T] => {
 
 const createStore = () => {
   if (import.meta.env.SSR) {
-    return new AppStore();
+    return IAppStore.getInstance();
   } else {
-    store = store ?? new AppStore();
+    store = store ?? IAppStore.getInstance();
   }
 
   return store;

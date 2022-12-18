@@ -1,15 +1,16 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
+import { IUserListVM } from "./UserList.vm";
 
 interface IProps {}
 
 export const UserList: FC<IProps> = observer(() => {
-  const { data } = useStore("usersDataStore");
+  const { list } = useMemo(() => IUserListVM.getInstance(), []);
 
   return (
     <div>
-      {data.map(item => (
+      {list.map(item => (
         <div
           style={{
             display: "flex",
