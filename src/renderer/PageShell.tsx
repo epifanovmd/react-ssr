@@ -1,5 +1,6 @@
+import styles from "@force-dev/react-front/lib/esm/index.css?inline";
 import React, { StrictMode, useCallback, useMemo } from "react";
-import { ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 import { Container, Header } from "../components";
 import { RootContext } from "../store";
@@ -12,6 +13,10 @@ const themes: Record<AppThemes, AppTheme> = {
   light: lightTheme,
   dark: darkTheme,
 };
+
+const GlobalStyles = createGlobalStyle`
+  ${styles};
+`;
 
 export const PageShell = (pContext: VitePageContext) => {
   const [theme, setTheme] = React.useState<AppThemes>("light");
@@ -71,6 +76,7 @@ export const PageShell = (pContext: VitePageContext) => {
       <RootContext.Provider value={storeValue}>
         <PageContextProvider value={value}>
           <ThemeProvider theme={provideTheme}>
+            <GlobalStyles />
             <Container>
               <Header />
               <Page {...pageProps} />
