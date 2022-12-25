@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import type { PageContextServer } from "./types";
-import { PageShell } from "./PageShell";
 import { ServerStyleSheet } from "styled-components";
-import { createStore } from "../store";
 import { dangerouslySkipEscape, escapeInject } from "vite-plugin-ssr";
+
+import { createStore } from "../store";
+import { PageShell } from "./PageShell";
+import type { PageContextServer } from "./types";
 
 export const passToClient = ["routeParams", "hydrateData"];
 
@@ -38,7 +39,7 @@ export const render = async (pageContext: PageContextServer) => {
         ${dangerouslySkipEscape(styles)}
       </head>
       <body>
-        <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;
 

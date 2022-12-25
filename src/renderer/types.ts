@@ -1,8 +1,9 @@
 import { ReactElement } from "react";
 import type { PageContextBuiltIn } from "vite-plugin-ssr";
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client";
-import { AppStore } from "../store";
 import { PageContextUrls } from "vite-plugin-ssr/dist/esm/shared/addComputedUrlProps";
+
+import { AppStore } from "../store";
 
 export type { DocumentProps };
 export type { OnBeforeRender };

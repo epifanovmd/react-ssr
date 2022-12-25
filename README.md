@@ -5,7 +5,6 @@ React Typescript Mobx Server Side Rendering Application
 ##### Stack:
   - Typescript
   - React
-  - i18next
   - Styled Components
   - Vite
   - Vite SSR

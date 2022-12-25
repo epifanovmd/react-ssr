@@ -1,12 +1,17 @@
 import react from "@vitejs/plugin-react";
-import ssr from "vite-plugin-ssr/plugin";
 import { UserConfig } from "vite";
+import { cjsInterop } from "vite-plugin-cjs-interop";
+import ssr from "vite-plugin-ssr/plugin";
 
 const config: UserConfig = {
-  plugins: [react(), ssr()],
-  ssr: {
-    format: "cjs",
-  },
+  plugins: [
+    react(),
+    ssr(),
+    cjsInterop({
+      // List of CJS dependencies that require interop
+      dependencies: ["styled-components", "lodash"],
+    }),
+  ],
   server: {
     proxy: {
       "/api": {

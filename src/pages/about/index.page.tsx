@@ -1,3 +1,13 @@
+// import styles from "@force-dev/react-front/lib/esm/index.css";
 import React from "react";
+import { createGlobalStyle } from "styled-components";
 
-export const Page = () => <div>About page</div>;
+const GlobalStyle = createGlobalStyle`
+`;
+
+export const Page = () => (
+  <div>
+    <GlobalStyle />
+    About page
+  </div>
+);

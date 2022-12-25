@@ -1,8 +1,9 @@
+import { iocDecorator } from "@force-dev/utils";
 import { makeAutoObservable } from "mobx";
-import { IUser, IUsersService, UsersService } from "../../service";
+
 import { CollectionHolder } from "../../common";
+import { IUser, IUsersService, UsersService } from "../../service";
 import { PrefetchStore } from "../types";
-import { iocDecorator } from "../../common/ioc";
 
 export const IUsersDataStore = iocDecorator<UsersDataStore>();
 

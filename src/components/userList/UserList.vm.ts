@@ -1,5 +1,6 @@
+import { iocDecorator, iocHook } from "@force-dev/utils";
 import { makeAutoObservable } from "mobx";
-import { iocDecorator, iocHook } from "../../common/ioc";
+
 import { AppStore, IAppStore } from "../../store";
 
 export const IUserListVM = iocDecorator<UserListVM>();

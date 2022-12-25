@@ -1,9 +1,11 @@
+import path from "node:path";
+
 import compression from "compression";
 import express from "express";
-import path from "node:path";
-import { PageContextServer } from "../src/renderer/types";
 import { createServer } from "vite";
 import { renderPage } from "vite-plugin-ssr";
+
+import { PageContextServer } from "../src/renderer/types";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -30,6 +32,7 @@ async function startServer() {
       urlOriginal: url,
     };
     const pageContext = await renderPage(pageContextInit);
+
     const { httpResponse } = pageContext;
 
     if (!httpResponse) {

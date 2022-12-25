@@ -1,9 +1,10 @@
-import { IUsersDataStore, UsersDataStore } from "./users";
-import { createContext, useContext } from "react";
-import { enableStaticRendering } from "mobx-react-lite";
-import { TAppStore, PrefetchStorePickKeys } from "./types";
+import { iocDecorator } from "@force-dev/utils";
 import { makeAutoObservable } from "mobx";
-import { iocDecorator } from "../common/ioc";
+import { enableStaticRendering } from "mobx-react-lite";
+import { createContext, useContext } from "react";
+
+import { PrefetchStorePickKeys, TAppStore } from "./types";
+import { IUsersDataStore, UsersDataStore } from "./users";
 
 export { AppStore };
 export { RootContext };
@@ -51,7 +52,7 @@ class AppStore {
 }
 
 const RootContext = createContext<TAppStore>(undefined as any);
-const useStore = <T extends keyof TAppStore>(key: T): AppStore[T] => {
+const useStore = <T extends keyof TAppStore>(key: T): TAppStore[T] => {
   const root = useContext(RootContext);
 
   return root[key];

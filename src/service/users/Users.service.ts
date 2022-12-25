@@ -1,6 +1,7 @@
+import { iocDecorator } from "@force-dev/utils";
+
 import { apiService } from "../../api";
 import { IUserResponse } from "./Users.types";
-import { iocDecorator } from "../../common/ioc";
 
 export const IUsersService = iocDecorator<UsersService>();
 

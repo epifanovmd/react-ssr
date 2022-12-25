@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { stringify } from "query-string";
+
 import { ApiError, ApiRequestConfig, ApiResponse, ErrorType } from "./types";
 
 export class ApiService {

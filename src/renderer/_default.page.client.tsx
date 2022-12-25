@@ -1,10 +1,11 @@
 import React from "react";
-import type { PageContextClient } from "./types";
-import { PageShell } from "./PageShell";
 import { createRoot } from "react-dom/client";
-import { createStore } from "../store";
 
-const container = document.getElementById("page-view");
+import { createStore } from "../store";
+import { PageShell } from "./PageShell";
+import type { PageContextClient } from "./types";
+
+const container = document.getElementById("root");
 const root = createRoot(container!);
 
 export const clientRouting = true;

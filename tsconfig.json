@@ -1,43 +1,37 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "target": "ES6",
+    "module": "ES2020",
+    "target": "ES2020",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": [
       "vite/client",
       "reflect-metadata",
     ],
-    "outDir": "./build",
-    "jsx": "react",
-    "rootDir": ".",
-    "removeComments": true,
-    "importHelpers": true,
-    "downlevelIteration": true,
-    "isolatedModules": true,
-    "strict": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./",
-    "esModuleInterop": true,
-    "preserveSymlinks": true,
-    "allowSyntheticDefaultImports": true,
-    "noImplicitReturns": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "allowJs": true,
-    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "jsx": "react",
     "moduleResolution": "Node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "preserveSymlinks": true,
+    "removeComments": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
   },
   "ts-node": {
     "transpileOnly": true,
+    "esm": true,
     "compilerOptions": {
-      "module": "CommonJS",
-      "types": [
-        "vite/client",
-        "reflect-metadata",
-      ]
+      "moduleResolution": "Node16"
     }
   },
   "exclude": [

@@ -1,5 +1,6 @@
-import React, { FC } from "react";
 import { observer } from "mobx-react-lite";
+import React, { FC } from "react";
+
 import { useUserListVM } from "./UserList.vm";
 
 interface IProps {}
