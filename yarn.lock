@@ -553,7 +553,7 @@
   dependencies:
     "@floating-ui/core" "^1.0.4"
 
-"@force-dev/react-front@^1.0.12":
+"@force-dev/react-front@^1.0.13":
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/@force-dev/react-front/-/react-front-1.0.13.tgz#da27cd8fb79005efff694abd10ef2562734d24cd"
   integrity sha512-QS6C69x2h1c5ZxPg5fH1szS2b1zkdET4xJHmobq+sYneEscbYo8BvipHycNY21UsMhj5Rt6L9Mxw7KDKar+JSw==
