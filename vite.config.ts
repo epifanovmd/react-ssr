@@ -11,7 +11,11 @@ const config: UserConfig = {
     mdx(),
     cjsInterop({
       // List of CJS dependencies that require interop
-      dependencies: ["styled-components", "lodash"],
+      dependencies: [
+        "styled-components",
+        "lodash",
+        "inversify-inject-decorators",
+      ],
     }),
   ],
   server: {

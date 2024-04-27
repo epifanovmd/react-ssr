@@ -8,7 +8,6 @@ import type {
 
 import { AppStore } from "../store";
 
-export type { DocumentProps };
 export type { OnBeforeRender };
 export type { PageContext };
 export type { PageContextServer };
@@ -26,7 +25,6 @@ type PageContextCustom = {
   urlPathname: string;
 
   exports: {
-    documentProps?: DocumentProps;
     onBeforeRender?: OnBeforeRender;
   };
 
@@ -34,7 +32,6 @@ type PageContextCustom = {
   hydrateData: Record<string, any>;
 };
 
-type DocumentProps = { title?: string; description?: string };
 type OnBeforeRender = (pageContext: PageContext) => Promise<AppStore>;
 
 type PageContextServer = VPageContextServer<Page> & PageContextCustom;
@@ -46,19 +43,7 @@ type PageContext<
   QueryParams = Record<string, string>,
   RouteParams = Record<string, string>,
   PageContextCustom = Record<string, any>,
-> = Omit<
-  VitePageContext,
-  // client unused
-  | "Page"
-  | "pageProps"
-  | "hydrateData"
-  | "exports"
-  | "exportsAll"
-  | "pageExports"
-  // redefine
-  | "routeParams"
-  | "urlParsed"
-> & {
+> = VitePageContext & {
   routeParams: RouteParams;
   urlParsed: Omit<
     PageContextUrlComputedPropsClient["urlParsed"],

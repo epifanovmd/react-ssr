@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 import { useUserListVM } from "./UserList.vm";
 
@@ -7,6 +7,11 @@ interface IProps {}
 
 export const UserList: FC<IProps> = observer(() => {
   const vm = useUserListVM();
+
+  useEffect(() => {
+    vm.refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

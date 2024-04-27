@@ -1,7 +1,7 @@
 import { iocDecorator } from "@force-dev/utils";
+import { CollectionHolder } from "@force-dev/utils";
 import { makeAutoObservable } from "mobx";
 
-import { CollectionHolder } from "../../common";
 import { IUser, IUsersService, UsersService } from "../../service";
 import { PrefetchStore } from "../types";
 
@@ -20,7 +20,7 @@ export class UsersDataStore implements PrefetchStore<IUser[]> {
   }
 
   async onRefresh() {
-    this.holder.setPullToRefreshing();
+    this.holder.setLoading();
     const res = await this._usersService.getUsers();
 
     if (res.error) {

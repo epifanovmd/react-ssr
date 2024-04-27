@@ -1,6 +1,7 @@
-import { iocDecorator, iocHook } from "@force-dev/utils";
+import { iocDecorator } from "@force-dev/utils";
 import { makeAutoObservable } from "mobx";
 
+import { iocHook } from "../../common";
 import { AppStore, IAppStore } from "../../store";
 
 export const IUserListVM = iocDecorator<UserListVM>();
@@ -20,5 +21,9 @@ class UserListVM {
 
   get list() {
     return this._appStore.usersDataStore.data;
+  }
+
+  refresh() {
+    return this._appStore.usersDataStore.onRefresh();
   }
 }

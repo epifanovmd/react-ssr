@@ -3,6 +3,7 @@ import React, { FC, memo } from "react";
 import styled from "styled-components";
 
 import { useStore } from "../../store";
+import { Link } from "../link";
 
 export const Header: FC = memo(() => {
   const { toggleTheme, theme } = useStore("theme");
@@ -13,16 +14,18 @@ export const Header: FC = memo(() => {
       <menu>
         <Items>
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <a href="/about">About</a>
+            <Link href="/about">About</Link>
           </li>
           <li>
-            <a href="/users">Users</a>
+            <Link href="/users">Users</Link>
           </li>
           <li>
-            <a href="/about/33?search=some">About id = 33, search = some</a>
+            <Link href="/about/33?search=some">
+              About id = 33, search = some
+            </Link>
           </li>
         </Items>
       </menu>

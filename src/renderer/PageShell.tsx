@@ -36,26 +36,6 @@ export const PageShell = (pContext: PageContext) => {
     ...rest
   } = pContext;
 
-  const urlParsed = useMemo(
-    () => pContext.urlParsed ?? ({} as PageContext["urlParsed"]),
-    [pContext.urlParsed],
-  );
-
-  const routeParams = useMemo(
-    () => pContext.routeParams ?? ({} as PageContext["routeParams"]),
-    [pContext.routeParams],
-  );
-
-  const value = useMemo(
-    () => ({
-      ...rest,
-      store,
-      urlParsed,
-      routeParams,
-    }),
-    [rest, routeParams, store, urlParsed],
-  );
-
   const storeValue = useMemo<TAppStore>(
     () => ({
       ...store,
@@ -75,7 +55,7 @@ export const PageShell = (pContext: PageContext) => {
   return (
     <StrictMode>
       <RootContext.Provider value={storeValue}>
-        <PageContextProvider value={value}>
+        <PageContextProvider value={pContext}>
           <ThemeProvider theme={provideTheme}>
             <GlobalStyles />
             <Container>
