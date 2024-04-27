@@ -6,7 +6,9 @@ import { cjsInterop } from "vite-plugin-cjs-interop";
 const config: UserConfig = {
   plugins: [
     react(),
-    ssr(),
+    ssr({
+      prerender: false,
+    }),
     cjsInterop({
       // List of CJS dependencies that require interop
       dependencies: ["styled-components", "lodash"],

@@ -1,7 +1,10 @@
 import { ReactElement } from "react";
-import type { PageContextBuiltIn } from "vike";
-import type { PageContextBuiltInClient } from "vike/client";
-import { PageContextUrls } from "vike/dist/esm/shared/addComputedUrlProps";
+import { PageContextUrlComputedPropsClient } from "vike/dist/esm/shared/addUrlComputedProps";
+import { PageContextClientWithServerRouting } from "vike/dist/esm/shared/types";
+import type {
+  PageContextClientWithServerRouting as VPageContextClient,
+  PageContextServer as VPageContextServer,
+} from "vike/types";
 
 import { AppStore } from "../store";
 
@@ -32,10 +35,12 @@ type PageContextCustom = {
 };
 
 type DocumentProps = { title?: string; description?: string };
-type OnBeforeRender = (pageContext: VitePageContext) => Promise<AppStore>;
+type OnBeforeRender = (pageContext: PageContext) => Promise<AppStore>;
 
-type PageContextServer = PageContextBuiltIn<Page> & PageContextCustom;
-type PageContextClient = PageContextBuiltInClient<Page> & PageContextCustom;
+type PageContextServer = VPageContextServer<Page> & PageContextCustom;
+type PageContextClient = VPageContextClient<Page> & PageContextCustom;
+
+const t = {} as PageContextClientWithServerRouting;
 
 type VitePageContext = PageContextClient | PageContextServer;
 
@@ -57,7 +62,10 @@ type PageContext<
   | "urlParsed"
 > & {
   routeParams: RouteParams;
-  urlParsed: Omit<PageContextUrls["urlParsed"], "search" | "searchAll"> & {
+  urlParsed: Omit<
+    PageContextUrlComputedPropsClient["urlParsed"],
+    "search" | "searchAll"
+  > & {
     search: Partial<QueryParams>;
     searchAll: Partial<
       Record<keyof QueryParams, QueryParams[keyof QueryParams][]>

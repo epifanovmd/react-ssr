@@ -7,9 +7,7 @@ import { createStore } from "../store";
 import { PageShell } from "./PageShell";
 import type { PageContextServer } from "./types";
 
-export const passToClient = ["routeParams", "hydrateData"];
-
-export const render = async (pageContext: PageContextServer) => {
+export const onRenderHtml = async (pageContext: PageContextServer) => {
   const store = createStore();
   const sheet = new ServerStyleSheet();
 

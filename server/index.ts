@@ -5,8 +5,6 @@ import express from "express";
 import { renderPage } from "vike/server";
 import { createServer } from "vite";
 
-import { PageContextServer } from "../src/renderer/types";
-
 const isProduction = process.env.NODE_ENV === "production";
 
 async function startServer() {
@@ -28,10 +26,9 @@ async function startServer() {
   app.get("*", async (req, res, next) => {
     const url = req.originalUrl;
 
-    const pageContextInit: Partial<PageContextServer> = {
+    const pageContext = await renderPage({
       urlOriginal: url,
-    };
-    const pageContext = await renderPage(pageContextInit);
+    });
 
     const { httpResponse } = pageContext;
 

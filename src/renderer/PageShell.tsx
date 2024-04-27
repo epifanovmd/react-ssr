@@ -6,7 +6,7 @@ import { Container, Header } from "../components";
 import { RootContext } from "../store";
 import { TAppStore } from "../store/types";
 import { AppTheme, AppThemes, darkTheme, lightTheme } from "../theme";
-import type { PageContext, VitePageContext } from "./types";
+import type { PageContext } from "./types";
 import { PageContextProvider } from "./usePageContext";
 
 const themes: Record<AppThemes, AppTheme> = {
@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
   ${styles};
 `;
 
-export const PageShell = (pContext: VitePageContext) => {
+export const PageShell = (pContext: PageContext) => {
   const [theme, setTheme] = React.useState<AppThemes>("light");
 
   const toggleTheme = useCallback(() => {
@@ -40,6 +40,7 @@ export const PageShell = (pContext: VitePageContext) => {
     () => pContext.urlParsed ?? ({} as PageContext["urlParsed"]),
     [pContext.urlParsed],
   );
+
   const routeParams = useMemo(
     () => pContext.routeParams ?? ({} as PageContext["routeParams"]),
     [pContext.routeParams],
