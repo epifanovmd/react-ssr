@@ -2,10 +2,8 @@ import path from "node:path";
 
 import compression from "compression";
 import express from "express";
+import { renderPage } from "vike/server";
 import { createServer } from "vite";
-import { renderPage } from "vite-plugin-ssr";
-
-import { PageContextServer } from "../src/renderer/types";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -28,22 +26,23 @@ async function startServer() {
   app.get("*", async (req, res, next) => {
     const url = req.originalUrl;
 
-    const pageContextInit: Partial<PageContextServer> = {
+    const pageContext = await renderPage({
       urlOriginal: url,
-    };
-    const pageContext = await renderPage(pageContextInit);
+    });
 
     const { httpResponse } = pageContext;
 
     if (!httpResponse) {
       return next();
     }
-    const { body, statusCode, contentType, earlyHints } = httpResponse;
+    const { body, statusCode, headers, earlyHints } = httpResponse;
 
     if (res.writeEarlyHints) {
       res.writeEarlyHints({ link: earlyHints.map(e => e.earlyHintLink) });
     }
-    res.status(statusCode).type(contentType).send(body);
+    headers.forEach(([name, value]) => res.setHeader(name, value));
+    res.status(statusCode);
+    res.send(body);
   });
 
   const port = process.env.PORT || 3000;

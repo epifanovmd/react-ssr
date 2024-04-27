@@ -1,10 +1,10 @@
-import { PageContext, VitePageContext } from "./types";
+import { PageContext } from "./types";
 
 export const beforeRender =
   <T = PageContext>(
     callback: (pageContext: T) => (Partial<T> & Record<string, any>) | void,
   ) =>
-  (pageContext: VitePageContext) => {
+  (pageContext: PageContext) => {
     const {
       Page,
       pageProps,

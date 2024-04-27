@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
-import { dangerouslySkipEscape, escapeInject } from "vite-plugin-ssr";
+import { dangerouslySkipEscape, escapeInject } from "vike/server";
 
 import { createStore } from "../store";
 import { PageShell } from "./PageShell";
 import type { PageContextServer } from "./types";
 
-export const passToClient = ["routeParams", "hydrateData"];
-
-export const render = async (pageContext: PageContextServer) => {
+export const onRenderHtml = async (pageContext: PageContextServer) => {
   const store = createStore();
   const sheet = new ServerStyleSheet();
 
@@ -25,8 +23,7 @@ export const render = async (pageContext: PageContextServer) => {
   const { documentProps } = pageContext.exports;
   const title = (documentProps && documentProps.title) || "Vite SSR app";
   const desc =
-    (documentProps && documentProps.description) ||
-    "App using Vite + vite-plugin-ssr";
+    (documentProps && documentProps.description) || "App using Vite + vike";
   const styles = sheet.getStyleTags();
 
   const documentHtml = escapeInject`<!DOCTYPE html>

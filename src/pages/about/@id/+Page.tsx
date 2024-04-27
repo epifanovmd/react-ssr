@@ -1,8 +1,8 @@
 import React from "react";
 
-import { beforeRender } from "../../renderer/beforeRender";
-import { PageContext } from "../../renderer/types";
-import { usePageContext } from "../../renderer/usePageContext";
+import { beforeRender } from "../../../renderer/beforeRender";
+import { PageContext } from "../../../renderer/types";
+import { usePageContext } from "../../../renderer/usePageContext";
 
 type AboutPageContext = PageContext<
   { a: string | number },

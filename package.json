@@ -24,7 +24,8 @@
     "prod": "npm run build && npm run server:prod",
     "build": "vite build",
     "server": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./server/index.ts",
-    "server:prod": "cross-env NODE_ENV=production ts-node ./server/index.ts",
+    "server:prod": "cross-env NODE_ENV=production node --no-warnings=ExperimentalWarning --loader ts-node/esm ./server/index.ts",
+    "preview": "vite build && vite preview",
     "lint:fix": "eslint --fix \"**/*{.ts,.tsx}\"",
     "prettier:fix": "prettier --parser typescript --write src/**/*.{json,ts,tsx}",
     "check-packages-updates": "yarn outdated"
@@ -70,9 +71,9 @@
     "ts-node": "^10.7.0",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
-    "vite": "^4.0.3",
-    "vite-plugin-cjs-interop": "0.0.7",
-    "vite-plugin-ssr": "^0.4.65"
+    "vike": "^0.4.65",
+    "vite": "^4.5.3",
+    "vite-plugin-cjs-interop": "0.0.7"
   },
   "husky": {
     "hooks": {

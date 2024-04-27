@@ -3,14 +3,14 @@ import { createRoot } from "react-dom/client";
 
 import { createStore } from "../store";
 import { PageShell } from "./PageShell";
-import type { PageContextClient } from "./types";
+import { PageContext } from "./types";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
 export const clientRouting = true;
 
-export const render = (pageContext: PageContextClient) => {
+export const onRenderClient = (pageContext: PageContext) => {
   const store = createStore();
 
   if (pageContext.isHydration) {
@@ -23,5 +23,6 @@ export const render = (pageContext: PageContextClient) => {
       store,
     });
   }
+
   root.render(<PageShell {...pageContext} store={store} />);
 };
