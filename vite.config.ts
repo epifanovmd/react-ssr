@@ -1,7 +1,7 @@
 import react from "@vitejs/plugin-react";
+import ssr from "vike/plugin";
 import { UserConfig } from "vite";
 import { cjsInterop } from "vite-plugin-cjs-interop";
-import ssr from "vite-plugin-ssr/plugin";
 
 const config: UserConfig = {
   plugins: [

@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
-import type { PageContextBuiltIn } from "vite-plugin-ssr";
-import type { PageContextBuiltInClient } from "vite-plugin-ssr/client";
-import { PageContextUrls } from "vite-plugin-ssr/dist/esm/shared/addComputedUrlProps";
+import type { PageContextBuiltIn } from "vike";
+import type { PageContextBuiltInClient } from "vike/client";
+import { PageContextUrls } from "vike/dist/esm/shared/addComputedUrlProps";
 
 import { AppStore } from "../store";
 
