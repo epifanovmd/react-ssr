@@ -40,8 +40,6 @@ type OnBeforeRender = (pageContext: PageContext) => Promise<AppStore>;
 type PageContextServer = VPageContextServer<Page> & PageContextCustom;
 type PageContextClient = VPageContextClient<Page> & PageContextCustom;
 
-const t = {} as PageContextClientWithServerRouting;
-
 type VitePageContext = PageContextClient | PageContextServer;
 
 type PageContext<

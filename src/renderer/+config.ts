@@ -7,4 +7,5 @@ export default {
       env: { server: true, client: true },
     },
   },
+  clientRouting: true,
 } satisfies Config;

@@ -46,6 +46,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@mdx-js/rollup": "^3.0.1",
     "@types/compression": "^1.7.2",
     "@types/express": "^4.17.14",
     "@types/lodash": "^4.14.191",

@@ -8,10 +8,10 @@ import { PageContext } from "./types";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
-export const clientRouting = true;
-
-export const onRenderClient = (pageContext: PageContext) => {
+export const onRenderClient = async (pageContext: PageContext) => {
   const store = createStore();
+
+  document.title = pageContext.exports?.documentProps?.title ?? "Vite SSR app";
 
   if (pageContext.isHydration) {
     if (pageContext.hydrateData) {
