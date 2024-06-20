@@ -1,7 +1,8 @@
 import { Config } from "vike/types";
 
 export default {
-  passToClient: ["routeParams", "hydrateData", "urlParsed"],
+  passToClient: ["routeParams", "hydrateData"],
+  hydrationCanBeAborted: true,
   meta: {
     title: {
       // Make the value of `title` available on both the server- and client-side

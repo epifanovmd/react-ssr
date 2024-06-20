@@ -1,10 +1,24 @@
-import { Input } from "@force-dev/react-front";
-import { camelize } from "@force-dev/utils";
-import React, { memo } from "react";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
 
-export const Page = memo(() => (
-  <div>
-    <div>123</div>
-    <Input placeholder={camelize("placeholder")} />
-  </div>
-));
+import { useStore } from "../../store";
+
+export const Page = observer(() => {
+  const { models, onRefresh } = useStore("postsDataStore");
+
+  useEffect(() => {
+    onRefresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div>
+      {models.map(post => (
+        <div key={post.data.id}>
+          <div>{post.data.title}</div>
+          <div>{post.data.body}</div>
+        </div>
+      ))}
+    </div>
+  );
+});

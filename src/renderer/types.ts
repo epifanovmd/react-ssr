@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { PageContextConfig } from "vike/dist/esm/shared/page-configs/Config/PageContextConfig";
 import type {
   PageContextClientWithServerRouting as VPageContextClient,
   PageContextServer as VPageContextServer,
@@ -49,5 +50,9 @@ type PageContext<
     searchAll: Partial<
       Record<keyof QueryParams, QueryParams[keyof QueryParams][]>
     >;
+  };
+  config: PageContextConfig & {
+    title?: string | ((pageContext: PageContext) => string);
+    description?: string | ((pageContext: PageContext) => string);
   };
 } & PageContextCustom;
