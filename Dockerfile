@@ -1,4 +1,4 @@
-ARG NODE_VERSION=16.14.2
+ARG NODE_VERSION=20.10.0
 
 FROM node:${NODE_VERSION}
 
@@ -11,4 +11,4 @@ RUN yarn
 RUN yarn build
 
 EXPOSE 3000
-CMD ["npm", "run", "prod"]
+CMD ["yarn", "run", "prod"]

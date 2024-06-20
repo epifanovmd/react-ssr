@@ -7,7 +7,7 @@ React Typescript Mobx Server Side Rendering Application
   - React
   - Styled Components
   - Vite
-  - Vite SSR
+  - Vike (SSR)
 
 ### Installation
 ```sh
@@ -28,7 +28,7 @@ Application listening on: http://localhost:3000
 ```sh
 $ docker build -f Dockerfile -t lending_ssr:latest .
 $ [[ $(docker ps -f name=lending_ssr_container -q -a) != '' ]] && docker rm --force $(docker ps -f name=lending_ssr_container -q -a)
-$ docker run -u root -d --restart=always --network server-net -p 8083:3000 --name lending_ssr_container lending_ssr:latest
+$ docker run -u root -d --restart=always --network server-net -p 8080:3000 --name lending_ssr_container lending_ssr:latest
 $ docker image prune -a --force
 ```
 
