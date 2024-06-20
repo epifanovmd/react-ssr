@@ -1,6 +1,6 @@
 interface EnvVariables {
-  PUBLIC_ENV__APP_NAME: string;
-  PUBLIC_ENV__APP_DESCRIPTION: string;
+  VITE_APP_NAME: string;
+  VITE_APP_APP_DESCRIPTION: string;
 }
 
 interface ImportMetaEnv extends EnvVariables {}

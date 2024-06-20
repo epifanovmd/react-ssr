@@ -8,5 +8,5 @@ export const getTitle = (pageContext: PageContext) => {
     if (typeof title === "function") return title(pageContext);
   }
 
-  return import.meta.env.PUBLIC_ENV__APP_NAME;
+  return import.meta.env.VITE_APP_NAME;
 };
