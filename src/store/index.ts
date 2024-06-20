@@ -3,8 +3,8 @@ import { makeAutoObservable } from "mobx";
 import { enableStaticRendering } from "mobx-react-lite";
 import { createContext, useContext } from "react";
 
+import { IPostsDataStore } from "./posts";
 import { PrefetchStorePickKeys, TAppStore } from "./types";
-import { IUsersDataStore, UsersDataStore } from "./users";
 
 export { AppStore };
 export { RootContext };
@@ -19,7 +19,7 @@ export const IAppStore = iocDecorator<AppStore>();
 
 @IAppStore({ inSingleton: true })
 class AppStore {
-  constructor(@IUsersDataStore() public usersDataStore: UsersDataStore) {
+  constructor(@IPostsDataStore() public postsDataStore: IPostsDataStore) {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 

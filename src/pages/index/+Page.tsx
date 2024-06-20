@@ -11,5 +11,5 @@ export const Page = () => (
 );
 
 const Text = styled.div`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.color.text};
 `;

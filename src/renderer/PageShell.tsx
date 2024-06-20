@@ -1,30 +1,21 @@
 import styles from "@force-dev/react-front/lib/esm/index.css?inline";
-import React, { StrictMode, useCallback, useMemo } from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import React, { StrictMode } from "react";
+import { createGlobalStyle } from "styled-components";
 
 import { Container, Header } from "../components";
+import { initLocalization } from "../localization";
 import { RootContext } from "../store";
-import { TAppStore } from "../store/types";
-import { AppTheme, AppThemes, darkTheme, lightTheme } from "../theme";
+import { ThemeProvider } from "../theme";
 import type { PageContext } from "./types";
 import { PageContextProvider } from "./usePageContext";
 
-const themes: Record<AppThemes, AppTheme> = {
-  light: lightTheme,
-  dark: darkTheme,
-};
+initLocalization({}).finally();
 
 const GlobalStyles = createGlobalStyle`
-  ${styles};
+  ${styles}
 `;
 
 export const PageShell = (pContext: PageContext) => {
-  const [theme, setTheme] = React.useState<AppThemes>("light");
-
-  const toggleTheme = useCallback(() => {
-    setTheme(state => (state === "light" ? "dark" : "light"));
-  }, []);
-
   const {
     Page,
     pageProps,
@@ -36,27 +27,11 @@ export const PageShell = (pContext: PageContext) => {
     ...rest
   } = pContext;
 
-  const storeValue = useMemo<TAppStore>(
-    () => ({
-      ...store,
-      theme: {
-        theme,
-        themes,
-        toggleTheme,
-      },
-    }),
-    [store, theme, toggleTheme],
-  );
-
-  const provideTheme = useMemo(() => {
-    return themes[theme];
-  }, [theme]);
-
   return (
     <StrictMode>
-      <RootContext.Provider value={storeValue}>
+      <RootContext.Provider value={store}>
         <PageContextProvider value={pContext}>
-          <ThemeProvider theme={provideTheme}>
+          <ThemeProvider>
             <GlobalStyles />
             <Container>
               <Header />

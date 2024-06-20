@@ -4,6 +4,8 @@ import ssr from "vike/plugin";
 import { UserConfig } from "vite";
 import { cjsInterop } from "vite-plugin-cjs-interop";
 
+const base_url = process.env.VITE_BASE_URL;
+
 const config: UserConfig = {
   plugins: [
     react(),
@@ -21,7 +23,7 @@ const config: UserConfig = {
   server: {
     proxy: {
       "/api": {
-        target: "http://jsonplaceholder.typicode.com/",
+        target: base_url,
         rewrite: path => path.replace("/api", ""),
         changeOrigin: true,
       },

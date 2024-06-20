@@ -2,11 +2,10 @@ import { Switch } from "@force-dev/react-front";
 import React, { FC, memo } from "react";
 import styled from "styled-components";
 
-import { useStore } from "../../store";
-import { Link } from "../link";
+import { useTheme } from "../../theme";
 
 export const Header: FC = memo(() => {
-  const { toggleTheme, theme } = useStore("theme");
+  const { toggleTheme, theme } = useTheme();
 
   return (
     <HeaderWrap>
@@ -14,18 +13,16 @@ export const Header: FC = memo(() => {
       <menu>
         <Items>
           <li>
-            <Link href="/">Home</Link>
+            <a href="/">Home</a>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <a href="/about">About</a>
           </li>
           <li>
-            <Link href="/users">Users</Link>
+            <a href="/posts">Posts</a>
           </li>
           <li>
-            <Link href="/about/33?search=some">
-              About id = 33, search = some
-            </Link>
+            <a href="/about/33?search=some">About id = 33, search = some</a>
           </li>
         </Items>
       </menu>

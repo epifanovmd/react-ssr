@@ -1,13 +1,10 @@
-import { ThemeStore } from "../theme";
 import { AppStore } from "./index";
 
 export type { TAppStore };
 export type { PrefetchStore };
 export type { PrefetchStorePickKeys };
 
-type TAppStore = Omit<AppStore, keyof PrefetchStore<any>> & {
-  theme: ThemeStore;
-};
+type TAppStore = Omit<AppStore, keyof PrefetchStore<any>>;
 
 type PrefetchStore<State> = {
   hydrate(state: State): void;

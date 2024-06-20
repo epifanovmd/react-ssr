@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
-import { PageContextUrlComputedPropsClient } from "vike/dist/esm/shared/addUrlComputedProps";
-import { PageContextClientWithServerRouting } from "vike/dist/esm/shared/types";
 import type {
   PageContextClientWithServerRouting as VPageContextClient,
   PageContextServer as VPageContextServer,
+  Url,
 } from "vike/types";
 
 import { AppStore } from "../store";
@@ -45,10 +44,7 @@ type PageContext<
   PageContextCustom = Record<string, any>,
 > = VitePageContext & {
   routeParams: RouteParams;
-  urlParsed: Omit<
-    PageContextUrlComputedPropsClient["urlParsed"],
-    "search" | "searchAll"
-  > & {
+  urlParsed: Omit<Url, "search" | "searchAll"> & {
     search: Partial<QueryParams>;
     searchAll: Partial<
       Record<keyof QueryParams, QueryParams[keyof QueryParams][]>
