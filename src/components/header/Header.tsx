@@ -13,9 +13,6 @@ export const Header: FC = memo(() => {
             <a href="/about">About</a>
           </li>
           <li>
-            <a href="/posts">Posts</a>
-          </li>
-          <li>
             <a href="/about/33?search=some">About id = 33, search = some</a>
           </li>
         </Items>

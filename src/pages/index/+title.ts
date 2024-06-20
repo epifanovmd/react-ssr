@@ -1,1 +1,1 @@
-export default "Главная страница";
+export default "Список пользователей";

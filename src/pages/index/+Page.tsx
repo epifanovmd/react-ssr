@@ -1,14 +1,24 @@
-import { camelize } from "@force-dev/utils";
-import React from "react";
-import styled from "styled-components";
+import { observer } from "mobx-react-lite";
+import React, { useEffect } from "react";
 
-export const Page = () => (
-  <div>
-    <Text>123</Text>
-    <input placeholder={camelize("placeholder")} />
-  </div>
-);
+import { useStore } from "../../store";
 
-const Text = styled.div`
-  color: ${({ theme }) => theme.color.text};
-`;
+export const Page = observer(() => {
+  const { models, onRefresh } = useStore("postsDataStore");
+
+  useEffect(() => {
+    onRefresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div>
+      {models.map(post => (
+        <div key={post.data.id}>
+          <div>{post.data.title}</div>
+          <div>{post.data.body}</div>
+        </div>
+      ))}
+    </div>
+  );
+});
