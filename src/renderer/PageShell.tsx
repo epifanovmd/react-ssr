@@ -1,4 +1,3 @@
-import styles from "@force-dev/react-front/lib/esm/index.css?inline";
 import React, { StrictMode } from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -12,7 +11,6 @@ import { PageContextProvider } from "./usePageContext";
 initLocalization({}).finally();
 
 const GlobalStyles = createGlobalStyle`
-  ${styles}
 `;
 
 export const PageShell = (pContext: PageContext) => {

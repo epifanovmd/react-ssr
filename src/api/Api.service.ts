@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { stringify } from "query-string";
+import queryString from "query-string";
 
 import {
   ApiAbortPromise,
@@ -95,7 +95,7 @@ export class ApiService implements IApiService {
     params?: P,
     config?: ApiRequestConfig,
   ) {
-    const query = params && stringify(params);
+    const query = params && queryString.stringify(params);
     const controller = this.raceCondition(endpoint, config?.useRaceCondition);
 
     const promise = this.instance

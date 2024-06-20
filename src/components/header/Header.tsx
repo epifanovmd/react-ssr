@@ -1,15 +1,9 @@
-import { Switch } from "@force-dev/react-front";
 import React, { FC, memo } from "react";
 import styled from "styled-components";
 
-import { useTheme } from "../../theme";
-
 export const Header: FC = memo(() => {
-  const { toggleTheme, theme } = useTheme();
-
   return (
     <HeaderWrap>
-      <Switch checked={theme === "light"} onChange={toggleTheme} />
       <menu>
         <Items>
           <li>

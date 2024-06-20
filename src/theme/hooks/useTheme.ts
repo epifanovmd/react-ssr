@@ -1,4 +1,5 @@
 import React from "react";
-import { ThemeContext } from "styled-components";
+
+import { ThemeContext } from "../ThemeContext";
 
 export const useTheme = () => React.useContext(ThemeContext);
