@@ -17,7 +17,9 @@ export class TokenService implements ITokenService {
     this.token = accessToken;
 
     if (refreshToken) {
-      localStorage.setItem("refresh_token", refreshToken);
+      if (!import.meta.env.SSR) {
+        localStorage.setItem("refresh_token", refreshToken);
+      }
     } else {
       this.clear();
     }
@@ -26,7 +28,7 @@ export class TokenService implements ITokenService {
 
   async restoreRefreshToken() {
     const token = await new Promise<string | null>(resolve =>
-      resolve(localStorage.getItem("refresh_token")),
+      resolve(import.meta.env.SSR ? "" : localStorage.getItem("refresh_token")),
     ).then(res => res ?? "");
 
     this.setTokens(this.token, token);
@@ -37,7 +39,10 @@ export class TokenService implements ITokenService {
   clear() {
     this.token = "";
 
-    localStorage.removeItem("refresh_token");
+    if (!import.meta.env.SSR) {
+      localStorage.removeItem("refresh_token");
+    }
+
     this.refreshToken = "";
   }
 }
