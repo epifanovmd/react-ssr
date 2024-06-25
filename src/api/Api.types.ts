@@ -70,10 +70,13 @@ export interface ApiResponse<R = any> {
   isCanceled?: boolean;
 }
 
-export type ApiRequest<T extends object = {}> = T & {
-  search?: string;
-  page?: number;
+export interface BaseRequest {
+  skip?: number;
   limit?: number;
-  sortField?: string;
-  sort?: "asc" | "dsc";
-};
+}
+
+export interface BaseResponse {
+  total: number;
+  skip: number;
+  limit: number;
+}
