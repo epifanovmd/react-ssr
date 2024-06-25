@@ -1,9 +1,12 @@
 import react from "@vitejs/plugin-react";
 import dotenv from "dotenv";
+import path from "path";
 import ssr from "vike/plugin";
 import { defineConfig, loadEnv } from "vite";
 // @ts-ignore
 import { cjsInterop } from "vite-plugin-cjs-interop";
+
+const projectRootDir = path.resolve(__dirname);
 
 dotenv.config({ path: [`.env.${process.env.NODE_ENV}`, ".env"] });
 
@@ -22,6 +25,17 @@ export default defineConfig({
       ],
     }),
   ],
+  resolve: {
+    alias: {
+      "@api": path.resolve(projectRootDir, "src/api"),
+      "@common": path.resolve(projectRootDir, "src/common"),
+      "@components": path.resolve(projectRootDir, "src/components"),
+      "@models": path.resolve(projectRootDir, "src/models"),
+      "@service": path.resolve(projectRootDir, "src/service"),
+      "@store": path.resolve(projectRootDir, "src/store"),
+      "@theme": path.resolve(projectRootDir, "src/theme"),
+    },
+  },
   server: {
     proxy: {
       "/api": {
