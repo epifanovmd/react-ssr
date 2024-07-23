@@ -2,8 +2,8 @@ import { iocDecorator } from "@force-dev/utils";
 
 import {
   ApiAbortPromise,
+  ApiRequest,
   ApiResponse,
-  BaseRequest,
   BaseResponse,
 } from "../../api";
 
@@ -34,7 +34,7 @@ export interface IPostReactions {
   dislikes: number;
 }
 
-export interface IPostsRequest extends BaseRequest {
+export interface IPostsRequest extends ApiRequest {
   select?: keyof IPost;
   sortBy?: keyof IPost;
   order?: "asc" | "desc";
