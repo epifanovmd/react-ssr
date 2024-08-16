@@ -13,7 +13,7 @@ export const Page = () => {
   return (
     <div>
       <GlobalStyle />
-      About page
+      About page1
     </div>
   );
 };

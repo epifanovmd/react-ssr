@@ -23,6 +23,7 @@ export default defineConfig({
     cjsInterop({
       // List of CJS dependencies that require interop
       dependencies: [
+        "@force-dev/utils",
         "styled-components",
         "lodash",
         "inversify-inject-decorators",

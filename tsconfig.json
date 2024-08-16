@@ -33,15 +33,7 @@
       "@models": ["./src/models"],
       "@service": ["./src/service"],
       "@store": ["./src/store"],
-      "@theme": ["./src/theme"],
-    }
-  },
-  "ts-node": {
-    "transpileOnly": true,
-    "esm": true,
-    "compilerOptions": {
-      "moduleResolution": "Node16",
-      "useDefineForClassFields": true
+      "@theme": ["./src/theme"]
     }
   },
   "exclude": [

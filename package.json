@@ -31,8 +31,8 @@
     "check-packages-updates": "yarn outdated"
   },
   "dependencies": {
-    "@force-dev/react": "^1.1.17",
-    "@force-dev/utils": "^1.1.64",
+    "@force-dev/react": "^1.1.20",
+    "@force-dev/utils": "^1.1.77",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "express": "^4.19.2",
@@ -80,7 +80,7 @@
     "typescript": "^5.5.4",
     "vike": "^0.4.177",
     "vite": "^5.3.1",
-    "vite-plugin-cjs-interop": "0.0.7"
+    "vite-plugin-cjs-interop": "^2.1.2"
   },
   "husky": {
     "hooks": {
