@@ -1,5 +1,6 @@
-import { ApiRequest, ApiResponse, BaseResponse } from "@api";
 import { CancelablePromise, iocDecorator } from "@force-dev/utils";
+
+import { ApiRequest, ApiResponse, BaseResponse } from "~@api";
 
 export const IPostsService = iocDecorator<IPostsService>();
 

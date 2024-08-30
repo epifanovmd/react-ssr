@@ -1,5 +1,6 @@
-import { ApiResponse } from "@api";
 import { CancelablePromise, iocDecorator } from "@force-dev/utils";
+
+import { ApiResponse } from "~@api";
 
 export const IProfileService = iocDecorator<IProfileService>();
 
