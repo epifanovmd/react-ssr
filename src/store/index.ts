@@ -32,7 +32,7 @@ class AppStore {
       }
 
       if (this[k]) {
-        this[k]?.hydrate?.(data[k] as any);
+        this[k]?.hydrate?.(data[k] as never);
       }
     });
   }
@@ -51,7 +51,7 @@ class AppStore {
   }
 }
 
-const RootContext = createContext<TAppStore>(undefined as any);
+const RootContext = createContext<TAppStore>(undefined as never);
 const useStore = <T extends keyof TAppStore>(key: T): TAppStore[T] => {
   const root = useContext(RootContext);
 

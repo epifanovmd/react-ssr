@@ -1,10 +1,11 @@
 import React, { StrictMode } from "react";
 import { createGlobalStyle } from "styled-components";
 
-import { Container, Header } from "../components";
+import { Container, Header } from "~@components";
+import { RootContext } from "~@store";
+import { ThemeProvider } from "~@theme";
+
 import { initLocalization } from "../localization";
-import { RootContext } from "../store";
-import { ThemeProvider } from "../theme";
 import type { PageContext } from "./types";
 import { PageContextProvider } from "./usePageContext";
 
@@ -14,16 +15,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export const PageShell = (pContext: PageContext) => {
-  const {
-    Page,
-    pageProps,
-    hydrateData,
-    exports,
-    exportsAll,
-    pageExports,
-    store,
-    ...rest
-  } = pContext;
+  const { Page, pageProps, store } = pContext;
 
   return (
     <StrictMode>

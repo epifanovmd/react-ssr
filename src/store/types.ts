@@ -4,7 +4,7 @@ export type { TAppStore };
 export type { PrefetchStore };
 export type { PrefetchStorePickKeys };
 
-type TAppStore = Omit<AppStore, keyof PrefetchStore<any>>;
+type TAppStore = Omit<AppStore, keyof PrefetchStore<never>>;
 
 type PrefetchStore<State> = {
   hydrate(state: State): void;

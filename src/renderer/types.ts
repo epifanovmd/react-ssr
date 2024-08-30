@@ -29,7 +29,7 @@ type PageContextCustom = {
   };
 
   store: AppStore;
-  hydrateData: Record<string, any>;
+  hydrateData: Record<string, never>;
 };
 
 type OnBeforeRender = (pageContext: PageContext) => Promise<AppStore>;
@@ -42,7 +42,7 @@ type VitePageContext = PageContextClient | PageContextServer;
 type PageContext<
   QueryParams = Record<string, string>,
   RouteParams = Record<string, string>,
-  PageContextCustom = Record<string, any>,
+  PageContextCustom = Record<string, never>,
 > = VitePageContext & {
   routeParams: RouteParams;
   urlParsed: Omit<Url, "search" | "searchAll"> & {

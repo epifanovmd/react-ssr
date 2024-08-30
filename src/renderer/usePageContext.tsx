@@ -2,7 +2,7 @@ import React, { ProviderProps, useContext } from "react";
 
 import type { PageContext } from "./types";
 
-const Context = React.createContext<PageContext>(undefined as any);
+const Context = React.createContext<PageContext>(undefined as never);
 
 export const PageContextProvider = ({
   value,

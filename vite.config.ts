@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import ssr from "vike/plugin";
 import { defineConfig } from "vite";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { cjsInterop } from "vite-plugin-cjs-interop";
 

@@ -1,4 +1,4 @@
-export interface ApiResponse<R = any> {
+export interface ApiResponse<R = never> {
   data?: R;
   status: number;
   error?: Error;

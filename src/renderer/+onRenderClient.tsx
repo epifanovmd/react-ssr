@@ -1,12 +1,14 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import { createStore } from "../store";
+import { createStore } from "~@store";
+
 import { getTitle } from "./getTitle";
 import { PageShell } from "./PageShell";
 import { PageContext } from "./types";
 
 const container = document.getElementById("root");
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 
 export const onRenderClient = async (pageContext: PageContext) => {
