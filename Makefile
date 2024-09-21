@@ -5,7 +5,7 @@ SSH_HOST=147.45.245.104
 .PHONY: all deploy clean copy remove-container docker-compose-up status logs restart-container backup
 
 # Имя контейнера (или сервиса в docker-compose.yml)
-CONTAINER_NAME=wireguard-server
+CONTAINER_NAME=react-ssr
 
 # Переменная для использования SSH
 USE_SSH=$(filter ssh,$(MAKECMDGOALS))
@@ -17,7 +17,7 @@ CMD_PREFIX=$(if $(USE_SSH),ssh $(SSH_USER)@$(SSH_HOST),)
 LOCAL_PROJECT_DIR=.
 
 # Директория проекта только для SSH
-SSH_PROJECT_DIR=development/wireguard-server
+SSH_PROJECT_DIR=development/$(CONTAINER_NAME)
 
 # Директория проекта (локально или по SSH)
 PROJECT_DIR=$(if $(USE_SSH),$(SSH_PROJECT_DIR),$(LOCAL_PROJECT_DIR))
@@ -39,8 +39,8 @@ copy:
 
 # Правило для остановки и удаления запущенного контейнера
 remove-container:
-	@if [ "$$($(CMD_PREFIX) docker ps -f name=wireguard-web -q -a)" != "" ]; then \
-		$(CMD_PREFIX) docker rm --force $$($(CMD_PREFIX) docker ps -f name=wireguard-web -q -a); \
+	@if [ "$$($(CMD_PREFIX) docker ps -f name=$(CONTAINER_NAME) -q -a)" != "" ]; then \
+		$(CMD_PREFIX) docker rm --force $$($(CMD_PREFIX) docker ps -f name=$(CONTAINER_NAME) -q -a); \
 	fi
 
 # Правило для запуска Docker Compose
