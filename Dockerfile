@@ -1,14 +1,24 @@
-ARG NODE_VERSION=20.10.0
+ARG NODE_VERSION=20-alpine
+
+FROM node:${NODE_VERSION} AS installer
+
+WORKDIR /app
+#ENV NODE_ENV=production
+
+COPY package*.json .
+COPY yarn.lock .
+
+RUN yarn
 
 FROM node:${NODE_VERSION}
 
-WORKDIR .
-COPY . ./react-ssr
+WORKDIR /app
+#ENV NODE_ENV=production
 
-WORKDIR ./react-ssr
+COPY --from=installer /app /app
+COPY . .
 
-RUN yarn
 RUN yarn build
 
 EXPOSE 3000
-CMD ["yarn", "run", "prod"]
+CMD ["npm", "run", "prod"]

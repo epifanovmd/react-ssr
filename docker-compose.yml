@@ -1,0 +1,10 @@
+services:
+  react-ssr:
+    build: .
+    container_name: react-ssr
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  wireguard:
